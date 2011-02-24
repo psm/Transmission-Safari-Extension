@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<string>http://piroteca.jaus:9091</string>
+		<string>http://localhost:9091</string>
 		<key>Key</key>
 		<string>url</string>
 		<key>Title</key>

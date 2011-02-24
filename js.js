@@ -1,4 +1,11 @@
 /*global safari,console*/
+/*
+Transmission Extension for Safari by Partido Surrealista Mexicano is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+Based on a work at www.transmissionbt.com.
+
+http://creativecommons.org/licenses/by-nc-sa/3.0/
+*/
+
 var base = safari.extension.settings.url;
 console.log(base);
 var rpc = base+'/transmission/rpc';
