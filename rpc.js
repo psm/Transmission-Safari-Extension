@@ -7,10 +7,16 @@ http://creativecommons.org/licenses/by-nc-sa/3.0/
 */
 
 var base = safari.extension.settings.url;
-console.log(base);
-var rpc = base+'/transmission/rpc';
 var ssid = null;
 var rpcea = null;
+
+safari.extension.settings.addEventListener("change", function(event){
+	if(event.key == 'url'){
+		base = event.newValue;
+		safari.extension.settings.url = base;
+		console.log('Changing base to: '+base);
+	}
+}, false);
 
 function cl(cosa){
 	console.log(cosa);
@@ -23,7 +29,7 @@ function add(torrent){
 	xhr.onreadystatechange = function(){
 		rpcea(xhr, torrent);
 	};
-	xhr.open('POST', rpc);
+	xhr.open('POST', base+'/transmission/rpc');
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); 
 	xhr.setRequestHeader("X-Transmission-Session-Id", ssid);
 	xhr.send('{"method":"torrent-add","arguments":{"paused":false,"filename":"'+torrent.url+'"}}');
@@ -47,8 +53,8 @@ safari.application.addEventListener("command", function(event){
 } , false);
 
 safari.application.addEventListener("contextmenu", function(event){
-	if(event.userInfo !== undefined){
-		event.contextMenu.appendContextMenuItem('piroteca', 'Agregar Torrent a Piroteca');
+	if( typeof event.userInfo !== 'undefined'){
+		event.contextMenu.appendContextMenuItem('piroteca', 'Add Torrent to Transmission');
 	}
 	
 }, false);
